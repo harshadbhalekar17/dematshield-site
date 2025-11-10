@@ -13,7 +13,39 @@
       <nav>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-  <section id="complaint">
+<section id="complaint" class="container form-section">
+  <h2>File a Complaint</h2>
+
+  <!-- Using FormSubmit to forward to dematshield@outlook.in -->
+  <!-- You MUST verify the email after first submit (FormSubmit sends a confirmation link) -->
+  <form id="complaintForm" action="https://formsubmit.co/dematshield@outlook.in" method="POST" class="complaint-form">
+    <!-- optional: redirect to thankyou page after submit -->
+    <input type="hidden" name="_next" value="thankyou.html">
+    <input type="hidden" name="_captcha" value="false">
+
+    <label for="name">Full Name <span class="req">*</span></label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email <span class="req">*</span></label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="mobile">Mobile Number</label>
+    <input type="tel" id="mobile" name="mobile" inputmode="tel" pattern="[0-9+()\- ]{7,20}">
+
+    <label for="dp">Name of DP / Broker</label>
+    <input type="text" id="dp" name="dp">
+
+    <label for="issue">Brief Description <span class="req">*</span></label>
+    <textarea id="issue" name="issue" rows="5" required></textarea>
+
+    <label for="attach">Attach (optional)</label>
+    <input type="file" id="attach" name="attachment" accept="image/*,.pdf">
+
+    <div class="form-actions">
+      <button type="submit" id="submitBtn">Submit Complaint</button>
+    </div>
+  </form>
+</section>
   <h2>File a Complaint</h2>
   <form action="thankyou.html" method="post" class="complaint-form">
     <label for="name">Full Name:</label>
