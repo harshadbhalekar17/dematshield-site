@@ -5,21 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Demat Shield — Investor Grievance Help</title>
   <meta name="description" content="Demat Shield helps investors file and track Demat/investment complaints with CDSL, NSDL and SEBI SCORES. Free pilot service." />
-
-  <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css">
-  <!-- Add your Google Analytics tag here if you have one:
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXX"></script>
-  <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config','G-XXXXX'); </script>
-  -->
 </head>
 <body>
   <header class="topbar">
     <div class="container nav">
       <div class="brand">
-        <!-- Inline simple shield SVG logo -->
         <svg class="brand-svg" width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M12 2l7 3v5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5l7-3z" fill="#3b82f6"/>
           <path d="M12 2v5" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
@@ -56,15 +48,18 @@
 
       <div class="hero-right" aria-hidden="true">
         <div class="card-visual">
-          <!-- Unsplash hero image — replace with your own uploaded image if desired -->
-          <img src="https://images.unsplash.com/photo-1526378722431-0f058a1b0e9d?q=80&w=1400&auto=format&fit=crop" alt="support illustration">
+          <!-- reliable hero: background defined in CSS; include <img> with onerror fallback -->
+          <img id="heroImg"
+            src="https://images.unsplash.com/photo-1526378722431-0f058a1b0e9d?auto=format&fit=crop&w=1400&q=80"
+            alt="support illustration"
+            loading="lazy"
+            onerror="this.style.display='none'">
         </div>
       </div>
     </div>
   </section>
 
   <main class="container content">
-    <!-- Features -->
     <section class="features">
       <h2>How Demat Shield helps</h2>
       <div class="cards">
@@ -86,22 +81,72 @@
       </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimonials slider -->
     <section class="testimonials">
       <h2>Trusted by investors</h2>
-      <div class="test-cards">
-        <blockquote>
-          "Demat Shield helped me track a transfer issue — resolved in a week. Very clear guidance."
-          <cite>— S. Reddy</cite>
-        </blockquote>
-        <blockquote>
-          "Clear templates and supportive follow-up. Saved me time and paperwork."
-          <cite>— M. Iyer</cite>
-        </blockquote>
+
+      <div class="slider" id="testimonialSlider" aria-roledescription="carousel">
+        <button class="slider-btn prev" aria-label="Previous testimonial">‹</button>
+
+        <div class="slides">
+          <!-- Slide 1 -->
+          <div class="slide">
+            <blockquote>
+              "Demat Shield helped me track a transfer issue — resolved in a week. Very clear guidance."
+              <cite>— S. Reddy</cite>
+            </blockquote>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="slide">
+            <blockquote>
+              "Clear templates and supportive follow-up. Saved me time and paperwork."
+              <cite>— M. Iyer</cite>
+            </blockquote>
+          </div>
+
+          <!-- New slides requested -->
+          <div class="slide">
+            <blockquote>
+              "Quick, professional and helpful — they guided me end-to-end."
+              <cite>— Prachi Waskar</cite>
+            </blockquote>
+          </div>
+
+          <div class="slide">
+            <blockquote>
+              "Detailed instructions made escalation easy. Good follow-up."
+              <cite>— Rohit Jadhav</cite>
+            </blockquote>
+          </div>
+
+          <div class="slide">
+            <blockquote>
+              "Resolved my demat debit discrepancy with clear paperwork — recommended."
+              <cite>— Rushikesh Suroshe</cite>
+            </blockquote>
+          </div>
+
+          <div class="slide">
+            <blockquote>
+              "Helpful team and transparent process — complaint tracked smoothly."
+              <cite>— Rakesh Surve</cite>
+            </blockquote>
+          </div>
+
+          <div class="slide">
+            <blockquote>
+              "Friendly guidance and quick updates. Good experience."
+              <cite>— Snehal Rasal</cite>
+            </blockquote>
+          </div>
+        </div>
+
+        <button class="slider-btn next" aria-label="Next testimonial">›</button>
+        <div class="slider-dots" aria-hidden="true"></div>
       </div>
     </section>
 
-    <!-- FAQs -->
     <section class="faq">
       <h2>Frequently asked questions</h2>
       <div class="accordion">
@@ -120,7 +165,6 @@
       </div>
     </section>
 
-    <!-- Contact -->
     <section class="contact-info">
       <h2>Contact & support</h2>
       <p>For partnership or urgent queries: <strong><a href="mailto:dematshield@outlook.in">dematshield@outlook.in</a></strong></p>
@@ -141,10 +185,7 @@
     </div>
   </footer>
 
-  <!-- Floating mobile CTA -->
-  <a id="floatCTA" class="float-cta" href="https://forms.gle/5KDKKUdqw9pjWPvn8" target="_blank" rel="noopener" aria-label="File complaint">
-    📄 File Complaint
-  </a>
+  <a id="floatCTA" class="float-cta" href="https://forms.gle/5KDKKUdqw9pjWPvn8" target="_blank" rel="noopener" aria-label="File complaint">📄 File Complaint</a>
 
   <script src="script.js"></script>
 </body>
