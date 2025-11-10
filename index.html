@@ -1,85 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demat Shield — File Your Complaint</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demat Shield – File Your Complaint</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <header class="topbar">
     <div class="container">
-      <div class="brand">Demat Shield</div>
+      <div class="brand">🛡️ Demat Shield</div>
       <nav>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-<section id="complaint" class="container form-section">
-  <h2>File a Complaint</h2>
-
-  <!-- Using FormSubmit to forward to dematshield@outlook.in -->
-  <!-- You MUST verify the email after first submit (FormSubmit sends a confirmation link) -->
-  <form id="complaintForm" action="https://formsubmit.co/dematshield@outlook.in" method="POST" class="complaint-form">
-    <!-- optional: redirect to thankyou page after submit -->
-    <input type="hidden" name="_next" value="thankyou.html">
-    <input type="hidden" name="_captcha" value="false">
-
-    <label for="name">Full Name <span class="req">*</span></label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="email">Email <span class="req">*</span></label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="mobile">Mobile Number</label>
-    <input type="tel" id="mobile" name="mobile" inputmode="tel" pattern="[0-9+()\- ]{7,20}">
-
-    <label for="dp">Name of DP / Broker</label>
-    <input type="text" id="dp" name="dp">
-
-    <label for="issue">Brief Description <span class="req">*</span></label>
-    <textarea id="issue" name="issue" rows="5" required></textarea>
-
-    <label for="attach">Attach (optional)</label>
-    <input type="file" id="attach" name="attachment" accept="image/*,.pdf">
-
-    <div class="form-actions">
-      <button type="submit" id="submitBtn">Submit Complaint</button>
-    </div>
-  </form>
-</section>
-  <h2>File a Complaint</h2>
-  <form action="thankyou.html" method="post" class="complaint-form">
-    <label for="name">Full Name:</label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="email">Email Address:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="issue">Complaint Details:</label>
-    <textarea id="issue" name="issue" rows="4" required></textarea>
-
-    <button type="submit">Submit Complaint</button>
-  </form>
-</section>
+        <a href="https://forms.gle/5KDKKUdqw9pjWPvn8" class="cta" target="_blank">File Complaint</a>
       </nav>
     </div>
   </header>
 
   <main class="container content">
-    <h1>🛡️ Demat Shield – File Your Complaint</h1>
+    <h1>Demat Shield – File Your Complaint</h1>
     <p class="lead">
       Welcome to <strong>Demat Shield</strong> — your one-stop platform for resolving Demat and investment-related issues.
-      We assist investors in filing and tracking complaints with CDSL, NSDL and SEBI SCORES.
-      Our team will review and guide you within 24–48 working hours.
+      We assist investors in filing and tracking complaints with <strong>CDSL</strong>, <strong>NSDL</strong>, and
+      <strong>SEBI SCORES</strong>. Our team will review and guide you within <strong>24–48 working hours</strong>.
     </p>
-    <section id="complaint" class="card">
-      <p>This form helps you register your grievance quickly and securely.</p>
+
+    <p>
+      This form helps you register your grievance quickly and securely.
+      Please click the <strong>File Complaint</strong> button above to proceed to the secure Google Form.
+    </p>
+
+    <section class="how-it-works">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Click <strong>File Complaint</strong> to open the submission form.</li>
+        <li>Fill in your details and describe your issue clearly.</li>
+        <li>Upload any supporting screenshots or documents.</li>
+        <li>Submit — our team will review and contact you within 24–48 working hours.</li>
+      </ol>
+    </section>
+
+    <section class="contact-info">
+      <h2>Contact Us</h2>
+      <p>If you face any difficulty, please reach us at:</p>
+      <p><strong>Email:</strong> dematshield@outlook.in</p>
+      <p><strong>Response time:</strong> Within 24–48 working hours (Mon–Fri)</p>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div>© Demat Shield — All rights reserved</div>
-    </div>
+  <footer>
+    <p>© Demat Shield — All rights reserved</p>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
