@@ -1,58 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demat Shield – File Your Complaint</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Demat Shield — Investor Grievance Help</title>
+  <meta name="description" content="Demat Shield helps investors file and track Demat/investment complaints with CDSL, NSDL and SEBI SCORES. Free pilot service." />
 
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <!-- Add your Google Analytics tag here if you have one:
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXX"></script>
+  <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config','G-XXXXX'); </script>
+  -->
+</head>
 <body>
   <header class="topbar">
-    <div class="container">
-      <div class="brand">🛡️ Demat Shield</div>
-      <nav>
+    <div class="container nav">
+      <div class="brand">
+        <!-- Inline simple shield SVG logo -->
+        <svg class="brand-svg" width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2l7 3v5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5l7-3z" fill="#3b82f6"/>
+          <path d="M12 2v5" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">Demat Shield</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="https://forms.gle/5KDKKUdqw9pjWPvn8" class="cta" target="_blank">File Complaint</a>
+        <a class="cta" href="https://forms.gle/5KDKKUdqw9pjWPvn8" target="_blank" rel="noopener">File Complaint</a>
       </nav>
     </div>
   </header>
 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-left">
+        <h1>Demat Shield — Protecting Investor Rights</h1>
+        <p class="lead">Fast, guided help for Demat / investment grievances (CDSL, NSDL &amp; SEBI SCORES). We help you lodge, track and escalate complaints so issues get resolved faster.</p>
+
+        <div class="hero-actions">
+          <a class="btn-primary" href="https://forms.gle/5KDKKUdqw9pjWPvn8" target="_blank" rel="noopener">File Complaint</a>
+          <a class="btn-ghost" href="about.html">Learn More</a>
+        </div>
+
+        <ul class="hero-stats" aria-hidden="true">
+          <li><strong>24–48 hrs</strong><span>Response</span></li>
+          <li><strong>No Fee</strong><span>Pilot</span></li>
+          <li><strong>Privacy-first</strong><span>Secure</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-right" aria-hidden="true">
+        <div class="card-visual">
+          <!-- Unsplash hero image — replace with your own uploaded image if desired -->
+          <img src="https://images.unsplash.com/photo-1526378722431-0f058a1b0e9d?q=80&w=1400&auto=format&fit=crop" alt="support illustration">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <main class="container content">
-    <h1>Demat Shield – File Your Complaint</h1>
-    <p class="lead">
-      Welcome to <strong>Demat Shield</strong> — your one-stop platform for resolving Demat and investment-related issues.
-      We assist investors in filing and tracking complaints with <strong>CDSL</strong>, <strong>NSDL</strong>, and
-      <strong>SEBI SCORES</strong>. Our team will review and guide you within <strong>24–48 working hours</strong>.
-    </p>
-
-    <p>
-      This form helps you register your grievance quickly and securely.
-      Please click the <strong>File Complaint</strong> button above to proceed to the secure Google Form.
-    </p>
-
-    <section class="how-it-works">
-      <h2>How It Works</h2>
-      <ol>
-        <li>Click <strong>File Complaint</strong> to open the submission form.</li>
-        <li>Fill in your details and describe your issue clearly.</li>
-        <li>Upload any supporting screenshots or documents.</li>
-        <li>Submit — our team will review and contact you within 24–48 working hours.</li>
-      </ol>
+    <!-- Features -->
+    <section class="features">
+      <h2>How Demat Shield helps</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="icon">🔒</div>
+          <h3>Secure handling</h3>
+          <p>We protect your personal details and share only what regulators require.</p>
+        </article>
+        <article class="card">
+          <div class="icon">📄</div>
+          <h3>Regulatory guidance</h3>
+          <p>Templates and step-by-step instructions for SEBI, DP and broker escalations.</p>
+        </article>
+        <article class="card">
+          <div class="icon">⏱️</div>
+          <h3>Faster resolution</h3>
+          <p>We prepare correct complaint submissions to reduce avoidable back-and-forth.</p>
+        </article>
+      </div>
     </section>
 
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <h2>Trusted by investors</h2>
+      <div class="test-cards">
+        <blockquote>
+          "Demat Shield helped me track a transfer issue — resolved in a week. Very clear guidance."
+          <cite>— S. Reddy</cite>
+        </blockquote>
+        <blockquote>
+          "Clear templates and supportive follow-up. Saved me time and paperwork."
+          <cite>— M. Iyer</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="faq">
+      <h2>Frequently asked questions</h2>
+      <div class="accordion">
+        <div class="item">
+          <button class="q" aria-expanded="false">How long before I get a response?</button>
+          <div class="a" hidden>We aim to respond within 24–48 working hours. Complex issues may take longer depending on the DP/broker response.</div>
+        </div>
+        <div class="item">
+          <button class="q" aria-expanded="false">Do you charge for filing complaints?</button>
+          <div class="a" hidden>During our pilot we offer this service free of charge. Paid services may be introduced later.</div>
+        </div>
+        <div class="item">
+          <button class="q" aria-expanded="false">Can I upload documents?</button>
+          <div class="a" hidden>Yes — our Google Form accepts attachments. Please remove or mask sensitive information where possible.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
     <section class="contact-info">
-      <h2>Contact Us</h2>
-      <p>If you face any difficulty, please reach us at:</p>
-      <p><strong>Email:</strong> dematshield@outlook.in</p>
-      <p><strong>Response time:</strong> Within 24–48 working hours (Mon–Fri)</p>
+      <h2>Contact & support</h2>
+      <p>For partnership or urgent queries: <strong><a href="mailto:dematshield@outlook.in">dematshield@outlook.in</a></strong></p>
+      <p>Response time: <strong>24–48 working hours</strong> (Mon–Fri).</p>
     </section>
   </main>
 
-  <footer>
-    <p>© Demat Shield — All rights reserved</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p>© Demat Shield — All rights reserved</p>
+        <p class="muted">Made with care • Mumbai</p>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
   </footer>
+
+  <!-- Floating mobile CTA -->
+  <a id="floatCTA" class="float-cta" href="https://forms.gle/5KDKKUdqw9pjWPvn8" target="_blank" rel="noopener" aria-label="File complaint">
+    📄 File Complaint
+  </a>
 
   <script src="script.js"></script>
 </body>
