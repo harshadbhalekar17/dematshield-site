@@ -1,37 +1,79 @@
-/* Simple responsive styles for Demat Shield */
-:root {
-  --accent:#4f46e5;
-  --muted:#6b7280;
-  --bg:#f8fafc;
-}
-* { box-sizing:border-box; }
 body {
-  font-family:Inter,system-ui,Arial,sans-serif;
-  margin:0;
-  background:var(--bg);
-  color:#0f172a;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  background: #f9fafc;
+  color: #1a1a1a;
 }
-.container {
-  max-width:900px;
-  margin:0 auto;
-  padding:18px;
+
+header.topbar {
+  background: #1f2937;
+  color: white;
+  padding: 12px 0;
 }
-.topbar {
-  background:white;
-  box-shadow:0 1px 4px rgba(15,23,42,0.06);
+
+header .container {
+  max-width: 960px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
 }
-.topbar .container {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
 }
-.brand { font-weight:700; color:var(--accent); }
+
 nav a {
-  margin-left:12px;
-  color:#0f172a;
-  text-decoration:none;
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
 }
+
 nav a.cta {
-  background:var(--accent);
-  color:white;
-  padding:8px 12px;
+  background: #3b82f6;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+nav a.cta:hover {
+  background: #2563eb;
+}
+
+main.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: #111827;
+}
+
+h2 {
+  color: #1e3a8a;
+  margin-top: 24px;
+}
+
+.lead {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #374151;
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  background: #1f2937;
+  color: #fff;
+  margin-top: 40px;
+}
+
+ol {
+  padding-left: 20px;
+  line-height: 1.6;
+}
