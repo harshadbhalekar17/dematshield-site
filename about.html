@@ -9,10 +9,9 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #050b18;
-      color: #0f172a;
+      color: #e5e7eb;
       margin: 0;
     }
-
     header {
       background: #020617;
       color: #e5f0ff;
@@ -22,17 +21,12 @@
       justify-content: space-between;
       border-bottom: 1px solid #1e293b;
     }
-
     header .brand {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    header .brand span {
       font-weight: 600;
     }
-
     main {
       min-height: calc(100vh - 60px);
       display: flex;
@@ -40,7 +34,6 @@
       justify-content: center;
       padding: 24px;
     }
-
     .card {
       background: #0b1220;
       border-radius: 16px;
@@ -49,27 +42,23 @@
       width: 100%;
       box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
       border: 1px solid #1f2937;
-      color: #e5e7eb;
     }
-
     .card h1 {
       font-size: 1.3rem;
       margin: 0 0 4px;
     }
-
     .card p.sub {
       margin: 0 0 16px;
       font-size: 0.85rem;
       color: #9ca3af;
     }
-
     label {
       display: block;
       font-size: 0.85rem;
       margin-bottom: 6px;
     }
-
-    input[type="email"] {
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
       padding: 10px 12px;
       border-radius: 10px;
@@ -78,17 +67,16 @@
       color: #f9fafb;
       font-size: 0.9rem;
       box-sizing: border-box;
+      margin-bottom: 10px;
     }
-
-    input[type="email"]:focus {
+    input:focus {
       outline: none;
       border-color: #3b82f6;
       box-shadow: 0 0 0 1px #3b82f6;
     }
-
     button {
       width: 100%;
-      margin-top: 14px;
+      margin-top: 6px;
       padding: 10px 12px;
       border-radius: 999px;
       border: none;
@@ -98,31 +86,25 @@
       font-size: 0.95rem;
       cursor: pointer;
     }
-
     button:disabled {
       opacity: 0.6;
       cursor: default;
     }
-
     .help-text {
       margin-top: 10px;
       font-size: 0.8rem;
       color: #9ca3af;
     }
-
     .status {
       margin-top: 10px;
       font-size: 0.85rem;
     }
-
     .status.error {
       color: #f97373;
     }
-
     .status.success {
       color: #4ade80;
     }
-
     .dashboard-placeholder {
       margin-top: 20px;
       padding: 12px;
@@ -131,8 +113,8 @@
       font-size: 0.8rem;
       color: #9ca3af;
       background: #020617;
+      display: none;
     }
-
     a.back-link {
       color: #9ca3af;
       font-size: 0.8rem;
@@ -151,11 +133,11 @@
 
   <main>
     <div class="card">
-      <h1>Admin access</h1>
-      <p class="sub">Sign in with your registered admin email to view complaints dashboard.</p>
+      <h1>Admin login</h1>
+      <p class="sub">Use your registered admin email and password.</p>
 
       <form id="loginForm">
-        <label for="email">Admin email</label>
+        <label for="email">Email</label>
         <input
           id="email"
           type="email"
@@ -163,19 +145,29 @@
           autocomplete="email"
           placeholder="dematshield@outlook.in"
         />
-        <button type="submit" id="submitBtn">Send magic link</button>
+
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          required
+          autocomplete="current-password"
+          placeholder="Enter password"
+        />
+
+        <button type="submit" id="submitBtn">Login</button>
       </form>
 
       <div class="help-text">
-        You’ll receive a sign-in link in your email. Open it on this device and
-        you’ll be redirected back to the admin dashboard.
+        Only approved admins can access this dashboard.  
+        If you forget the password, reset it from Supabase.
       </div>
 
       <div id="status" class="status"></div>
 
-      <div id="dashboardInfo" class="dashboard-placeholder" style="display:none;">
-        ✅ You are logged in as admin.  
-        Next step: we’ll wire this page to list all complaints from Supabase.
+      <div id="dashboardInfo" class="dashboard-placeholder">
+        ✅ Logged in as admin.  
+        Next: we’ll show complaint list and filters here.
       </div>
     </div>
   </main>
@@ -183,13 +175,16 @@
   <script type="module">
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
+    // Supabase project details
     const SUPABASE_URL = "https://ncdphbagmeefgnaljtha.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZHBoYmFnbWVlZmduYWxqdGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODg5NzEsImV4cCI6MjA3OTQ2NDk3MX0.RABZe9jC3SIeAOYOZaeOXcdSIDQicavdiKNYWuhOldE";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZHBoYmFnbWVlZmduYWxqdGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODg5NzEsImV4cCI6MjA3OTQ2NDk3MX0.RABZe9jC3SIeAOYOZaeOXcdSIDQicavdiKNYWuhOldE";
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const form = document.getElementById("loginForm");
     const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
     const statusEl = document.getElementById("status");
     const submitBtn = document.getElementById("submitBtn");
     const dashboardInfo = document.getElementById("dashboardInfo");
@@ -199,47 +194,42 @@
       statusEl.className = "status " + type;
     }
 
-    // Check if already logged in
+    // On load, check if already logged in
     (async () => {
       const { data, error } = await supabase.auth.getUser();
       if (data?.user && !error) {
         dashboardInfo.style.display = "block";
-        setStatus(
-          "Logged in as " + (data.user.email || "admin") + ".",
-          "success"
-        );
+        setStatus("Already logged in as " + (data.user.email || "admin") + ".", "success");
       }
     })();
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const email = emailInput.value.trim();
+      const password = passwordInput.value;
 
-      if (!email) {
-        setStatus("Please enter your email.", "error");
+      if (!email || !password) {
+        setStatus("Please enter both email and password.", "error");
         return;
       }
 
       submitBtn.disabled = true;
-      setStatus("Sending magic link…");
+      setStatus("Logging in…");
 
-      const { error } = await supabase.auth.signInWithOtp({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
-        options: {
-          emailRedirectTo: "https://dematshield.in/admin.html",
-        },
+        password,
       });
 
       submitBtn.disabled = false;
 
       if (error) {
         console.error(error);
-        setStatus("Error: " + error.message, "error");
+        setStatus("Login failed: " + error.message, "error");
       } else {
-        setStatus(
-          "Magic link sent. Check your inbox and open the link on this device.",
-          "success"
-        );
+        setStatus("Login successful.", "success");
+        dashboardInfo.style.display = "block";
+        // later we will load complaints here
       }
     });
   </script>
