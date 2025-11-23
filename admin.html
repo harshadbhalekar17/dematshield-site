@@ -11,10 +11,10 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #050816;
       color: #f9fafb;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
     }
     .card {
       background: #111827;
@@ -48,9 +48,6 @@
       font-size: 14px;
       box-sizing: border-box;
     }
-    .input[disabled] {
-      opacity: 0.7;
-    }
     .btn {
       width: 100%;
       margin-top: 14px;
@@ -73,15 +70,23 @@
     .status.ok { color: #4ade80; }
     .status.err { color: #f97373; }
 
-    .dashboard {
-      max-width: 960px;
+    /* Dashboard */
+    .dashboard-wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+    .dash-card {
+      background: #111827;
+      padding: 20px 22px;
+      border-radius: 12px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
     }
     .top-row {
       display: flex;
       justify-content: space-between;
       gap: 12px;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
     .pill {
       font-size: 12px;
@@ -90,16 +95,74 @@
       background: #1e293b;
       color: #e5e7eb;
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 8px 6px;
+      border-bottom: 1px solid #1f2937;
+      vertical-align: top;
+    }
+    th {
+      text-align: left;
+      font-weight: 500;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+    tr:nth-child(even) td {
+      background: #020617;
+    }
+    .badge {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #1f2937;
+    }
+    .logout-btn {
+      margin-top: 14px;
+      background: #ef4444;
+      width: auto;
+      padding: 8px 14px;
+    }
+    select.status-select {
+      background: #020617;
+      color: #f9fafb;
+      border-radius: 6px;
+      border: 1px solid #1f2937;
+      padding: 4px 6px;
+      font-size: 12px;
+    }
+    .small {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    @media (max-width: 768px) {
+      body {
+        align-items: flex-start;
+        padding: 16px 8px;
+      }
+      .dashboard-wrapper {
+        max-width: 100%;
+      }
+      .dash-card {
+        padding: 16px 10px;
+      }
+      table {
+        font-size: 12px;
+      }
+    }
   </style>
 
-  <!-- Supabase client -->
   <script src="https://unpkg.com/@supabase/supabase-js@2.48.0/dist/umd/supabase.js"></script>
 </head>
 <body>
   <!-- LOGIN CARD -->
   <div class="card" id="login-card">
     <h1>Admin Login</h1>
-    <p>No password. We’ll send a one-time login link to your admin email.</p>
+    <p>No password. Click the button and we’ll email a one-time login link.</p>
 
     <div class="input-label">Admin email</div>
     <input
@@ -114,28 +177,46 @@
     <div class="status" id="status-msg"></div>
   </div>
 
-  <!-- SIMPLE DASHBOARD PLACEHOLDER -->
-  <div class="card dashboard" id="dashboard-card" style="display:none;">
-    <div class="top-row">
-      <div>
-        <h1>Demat Shield – Admin</h1>
-        <p>Internal dashboard (logged in as <span id="whoami"></span>)</p>
+  <!-- DASHBOARD -->
+  <div class="dashboard-wrapper" id="dashboard-wrapper" style="display:none;">
+    <div class="dash-card">
+      <div class="top-row">
+        <div>
+          <h1 style="margin-bottom:4px;">Demat Shield – Admin</h1>
+          <p class="small">
+            Logged in as <span id="whoami"></span> • Tracking investor complaints filed via website.
+          </p>
+        </div>
+        <span class="pill">Admin only</span>
       </div>
-      <span class="pill">Admin only</span>
+
+      <div class="small" id="summary-line" style="margin-bottom:8px;">
+        Loading complaints…
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Created</th>
+              <th>Investor</th>
+              <th>DP / Broker</th>
+              <th>Issue</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="complaints-body">
+            <!-- rows injected here -->
+          </tbody>
+        </table>
+      </div>
+
+      <button class="logout-btn" id="logout-btn">Logout</button>
     </div>
-
-    <p style="margin-bottom: 8px;">Dashboard coming next – table of complaints, status updates, etc.</p>
-    <p style="font-size: 13px; color:#9ca3af;">
-      For now this just proves login is working correctly and your Supabase session is valid.
-    </p>
-
-    <button class="btn" id="logout-btn" style="margin-top:16px;background:#ef4444;">
-      Logout
-    </button>
   </div>
 
   <script>
-    // 🔐 Supabase config (from your screenshots)
+    // Supabase config
     const SUPABASE_URL = "https://ncdphbagmeefgnaljtha.supabase.co";
     const SUPABASE_ANON_KEY =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZHBoYmFnbWVlZmduYWxqdGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODg5NzEsImV4cCI6MjA3OTQ2NDk3MX0.RABZe9jC3SIeAOYOZaeOXcdSIDQicavdiKNYWuhOldE";
@@ -144,18 +225,21 @@
       auth: { persistSession: true }
     });
 
-    const loginCard = document.getElementById("login-card");
-    const dashCard  = document.getElementById("dashboard-card");
-    const statusMsg = document.getElementById("status-msg");
-    const sendBtn   = document.getElementById("send-link-btn");
-    const whoami    = document.getElementById("whoami");
-    const logoutBtn = document.getElementById("logout-btn");
+    const loginCard   = document.getElementById("login-card");
+    const dashWrap    = document.getElementById("dashboard-wrapper");
+    const statusMsg   = document.getElementById("status-msg");
+    const sendBtn     = document.getElementById("send-link-btn");
+    const whoamiEl    = document.getElementById("whoami");
+    const logoutBtn   = document.getElementById("logout-btn");
+    const tbody       = document.getElementById("complaints-body");
+    const summaryLine = document.getElementById("summary-line");
 
     function showStatus(msg, type = "ok") {
       statusMsg.textContent = msg;
       statusMsg.className = "status " + type;
     }
 
+    // send magic link
     async function sendMagicLink() {
       sendBtn.disabled = true;
       showStatus("Sending login link…");
@@ -179,12 +263,12 @@
       sendBtn.disabled = false;
     }
 
-    // When user comes back via magic link, URL will contain #access_token=...
+    // handle magic link URL
     async function handleMagicLinkInUrl() {
       if (window.location.hash.includes("access_token")) {
         const hash = window.location.hash.substring(1);
         const params = new URLSearchParams(hash);
-        const access_token = params.get("access_token");
+        const access_token  = params.get("access_token");
         const refresh_token = params.get("refresh_token");
 
         if (access_token && refresh_token) {
@@ -195,9 +279,100 @@
           if (error) console.error("setSession error:", error);
         }
 
-        // Clean URL so token is not visible
         window.history.replaceState({}, "", "/admin.html");
       }
+    }
+
+    function formatDate(dtString) {
+      if (!dtString) return "";
+      const d = new Date(dtString);
+      return d.toLocaleDateString("en-IN", { day:"2-digit", month:"short", year:"numeric" }) +
+             " " +
+             d.toLocaleTimeString("en-IN", { hour:"2-digit", minute:"2-digit" });
+    }
+
+    function renderComplaints(data) {
+      tbody.innerHTML = "";
+      if (!data || data.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="5" class="small">No complaints yet.</td></tr>';
+        summaryLine.textContent = "0 complaints in system.";
+        return;
+      }
+
+      summaryLine.textContent = `${data.length} complaint${data.length > 1 ? "s" : ""} loaded.`;
+
+      for (const row of data) {
+        const tr = document.createElement("tr");
+
+        const createdTd = document.createElement("td");
+        createdTd.textContent = formatDate(row.created_at);
+        tr.appendChild(createdTd);
+
+        const investorTd = document.createElement("td");
+        investorTd.innerHTML =
+          `<strong>${row.name || "-"}</strong><br>` +
+          `<span class="small">${row.email || ""}${row.mobile ? " • " + row.mobile : ""}</span>`;
+        tr.appendChild(investorTd);
+
+        const dpTd = document.createElement("td");
+        dpTd.textContent = row.dp || "-";
+        tr.appendChild(dpTd);
+
+        const issueTd = document.createElement("td");
+        issueTd.textContent = row.issue || "";
+        tr.appendChild(issueTd);
+
+        const statusTd = document.createElement("td");
+        const select = document.createElement("select");
+        select.className = "status-select";
+        const statuses = ["New", "In progress", "Resolved", "Closed"];
+        const current = row.status || "New";
+
+        statuses.forEach(s => {
+          const opt = document.createElement("option");
+          opt.value = opt.textContent = s;
+          if (s === current) opt.selected = true;
+          select.appendChild(opt);
+        });
+
+        select.addEventListener("change", async () => {
+          const newStatus = select.value;
+          const { error } = await supabaseClient
+            .from("complaints")
+            .update({ status: newStatus })
+            .eq("id", row.id);
+
+          if (error) {
+            console.error(error);
+            alert("Could not update status: " + error.message);
+            select.value = current;
+          }
+        });
+
+        statusTd.appendChild(select);
+        tr.appendChild(statusTd);
+
+        tbody.appendChild(tr);
+      }
+    }
+
+    async function loadComplaints() {
+      summaryLine.textContent = "Loading complaints…";
+      const { data, error } = await supabaseClient
+        .from("complaints")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error(error);
+        summaryLine.textContent = "Error loading complaints.";
+        tbody.innerHTML =
+          '<tr><td colspan="5" class="small">Error loading complaints.</td></tr>';
+        return;
+      }
+
+      renderComplaints(data);
     }
 
     async function checkSessionAndRender() {
@@ -206,14 +381,14 @@
       const { data: { session } } = await supabaseClient.auth.getSession();
 
       if (session && session.user) {
-        // Logged in → show dashboard
         loginCard.style.display = "none";
-        dashCard.style.display = "block";
-        whoami.textContent = session.user.email || "admin";
+        dashWrap.style.display = "block";
+        whoamiEl.textContent = session.user.email || "admin";
+
+        loadComplaints();
       } else {
-        // Not logged in → show login card
         loginCard.style.display = "block";
-        dashCard.style.display = "none";
+        dashWrap.style.display = "none";
       }
     }
 
@@ -225,7 +400,6 @@
     sendBtn.addEventListener("click", sendMagicLink);
     logoutBtn.addEventListener("click", logout);
 
-    // Run on page load
     checkSessionAndRender();
   </script>
 </body>
