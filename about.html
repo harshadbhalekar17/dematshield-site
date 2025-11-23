@@ -1,480 +1,247 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Demat Shield — Admin</title>
+  <meta charset="UTF-8" />
+  <title>Demat Shield — Admin Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     body {
-      background: #0f172a;
-      color: #0f172a;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050b18;
+      color: #0f172a;
+      margin: 0;
     }
-    .admin-shell {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .admin-header {
+
+    header {
       background: #020617;
-      color: #e5e7eb;
-      padding: 12px 20px;
+      color: #e5f0ff;
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 1px 0 rgba(15,23,42,0.6);
+      border-bottom: 1px solid #1e293b;
     }
-    .admin-header-title {
+
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header .brand span {
       font-weight: 600;
-      font-size: 18px;
     }
-    .admin-badge {
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      color: #9ca3af;
+
+    main {
+      min-height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
-    .admin-main {
-      flex: 1;
-      padding: 20px;
-      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+
+    .card {
+      background: #0b1220;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
+      border: 1px solid #1f2937;
       color: #e5e7eb;
     }
-    .card {
-      background: rgba(15,23,42,0.9);
-      border-radius: 16px;
-      padding: 18px 18px 14px;
-      box-shadow: 0 18px 40px rgba(15,23,42,0.8);
-      border: 1px solid rgba(148,163,184,0.35);
-      max-width: 440px;
-      margin: 0 auto;
-    }
+
     .card h1 {
-      margin: 0 0 6px;
-      font-size: 22px;
-      color: #f9fafb;
+      font-size: 1.3rem;
+      margin: 0 0 4px;
     }
-    .card p {
-      margin: 0 0 14px;
-      font-size: 13px;
+
+    .card p.sub {
+      margin: 0 0 16px;
+      font-size: 0.85rem;
       color: #9ca3af;
     }
+
     label {
       display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-      color: #e5e7eb;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
     }
+
     input[type="email"] {
       width: 100%;
-      padding: 8px 10px;
+      padding: 10px 12px;
       border-radius: 10px;
-      border: 1px solid rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.9);
+      border: 1px solid #374151;
+      background: #020617;
       color: #f9fafb;
-      font-size: 14px;
+      font-size: 0.9rem;
+      box-sizing: border-box;
     }
-    input[type="email"]::placeholder {
-      color: #6b7280;
+
+    input[type="email"]:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6;
     }
+
     button {
-      cursor: pointer;
-      border: none;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .btn-primary {
-      background: linear-gradient(to right, #22c55e, #16a34a);
-      color: #052e16;
-      box-shadow: 0 10px 30px rgba(16,185,129,0.45);
-    }
-    .btn-ghost {
-      background: transparent;
-      color: #e5e7eb;
-      border: 1px solid rgba(148,163,184,0.45);
-    }
-    .muted {
-      font-size: 11px;
-      color: #9ca3af;
-      margin-top: 8px;
-    }
-    .hidden { display: none; }
-
-    /* dashboard table */
-    .dash-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    @media (min-width: 900px) {
-      .dash-layout {
-        grid-template-columns: 260px minmax(0, 1fr);
-      }
-    }
-    .dash-card {
-      background: rgba(15,23,42,0.92);
-      border-radius: 16px;
-      padding: 14px 16px;
-      border: 1px solid rgba(148,163,184,0.35);
-      box-shadow: 0 14px 30px rgba(15,23,42,0.8);
-    }
-    .dash-card h2 {
-      margin: 0 0 8px;
-      font-size: 17px;
-      color: #f9fafb;
-    }
-    .stat-label {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-    .stat-value {
-      font-size: 20px;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      border: 1px solid rgba(148,163,184,0.6);
-      color: #e5e7eb;
-      gap: 4px;
-    }
-
-    table {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      background: #3b82f6;
+      color: white;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
     }
-    thead {
-      background: rgba(15,23,42,0.95);
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
     }
-    th, td {
-      padding: 6px 8px;
-      border-bottom: 1px solid rgba(30,64,175,0.5);
-      text-align: left;
-    }
-    th {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .04em;
+
+    .help-text {
+      margin-top: 10px;
+      font-size: 0.8rem;
       color: #9ca3af;
     }
-    tbody tr:hover {
-      background: rgba(30,64,175,0.35);
+
+    .status {
+      margin-top: 10px;
+      font-size: 0.85rem;
     }
-    .tag-open {
-      background: rgba(251,191,36,0.12);
-      color: #facc15;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 11px;
-      border: 1px solid rgba(250,204,21,0.4);
+
+    .status.error {
+      color: #f97373;
     }
-    .tag-closed {
-      background: rgba(34,197,94,0.12);
+
+    .status.success {
       color: #4ade80;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 11px;
-      border: 1px solid rgba(34,197,94,0.4);
     }
-    .small {
-      font-size: 11px;
+
+    .dashboard-placeholder {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px dashed #374151;
+      font-size: 0.8rem;
       color: #9ca3af;
+      background: #020617;
+    }
+
+    a.back-link {
+      color: #9ca3af;
+      font-size: 0.8rem;
+      text-decoration: none;
     }
   </style>
-
-  <!-- Supabase client -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2.49.1/dist/umd/supabase.js"></script>
 </head>
 <body>
-  <div class="admin-shell">
-    <header class="admin-header">
-      <div>
-        <div class="admin-header-title">Demat Shield — Admin</div>
-        <div class="small">Internal grievance tracking (CDSL • NSDL • SCORES)</div>
+  <header>
+    <div class="brand">
+      <span>🛡️</span>
+      <span>Demat Shield – Admin</span>
+    </div>
+    <a href="index.html" class="back-link">← Back to site</a>
+  </header>
+
+  <main>
+    <div class="card">
+      <h1>Admin access</h1>
+      <p class="sub">Sign in with your registered admin email to view complaints dashboard.</p>
+
+      <form id="loginForm">
+        <label for="email">Admin email</label>
+        <input
+          id="email"
+          type="email"
+          required
+          autocomplete="email"
+          placeholder="dematshield@outlook.in"
+        />
+        <button type="submit" id="submitBtn">Send magic link</button>
+      </form>
+
+      <div class="help-text">
+        You’ll receive a sign-in link in your email. Open it on this device and
+        you’ll be redirected back to the admin dashboard.
       </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <span class="admin-badge" id="env-badge">Connected</span>
-        <button class="btn-ghost hidden" id="logout-btn">Log out</button>
+
+      <div id="status" class="status"></div>
+
+      <div id="dashboardInfo" class="dashboard-placeholder" style="display:none;">
+        ✅ You are logged in as admin.  
+        Next step: we’ll wire this page to list all complaints from Supabase.
       </div>
-    </header>
+    </div>
+  </main>
 
-    <main class="admin-main">
-      <!-- LOGIN CARD -->
-      <section id="login-view" class="card">
-        <h1>Admin sign in</h1>
-        <p>Enter your official email to receive a secure login link. Only whitelisted IDs can access complaints.</p>
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-        <form id="login-form">
-          <label for="email">Admin email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="dematshield@outlook.in"
-            required
-          />
-          <div style="margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:flex-start">
-            <button type="submit" class="btn-primary" id="login-btn">
-              Send login link
-            </button>
-            <span class="small" id="login-status"></span>
-          </div>
-        </form>
-
-        <p class="muted">
-          Tip: Use only internal emails you’ve added in the <strong>admins</strong> table.
-          Others will sign in but won’t see any data.
-        </p>
-      </section>
-
-      <!-- DASHBOARD -->
-      <section id="dashboard-view" class="hidden">
-        <div class="dash-layout">
-          <!-- LEFT PANEL -->
-          <div class="dash-card">
-            <h2>Today’s snapshot</h2>
-            <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
-              <div>
-                <div class="stat-label">Total complaints</div>
-                <div class="stat-value" id="stat-total">–</div>
-              </div>
-              <div>
-                <div class="stat-label">Open / In progress</div>
-                <div class="stat-value" id="stat-open">–</div>
-              </div>
-              <div>
-                <div class="stat-label">Closed / Resolved</div>
-                <div class="stat-value" id="stat-closed">–</div>
-              </div>
-              <div>
-                <div class="stat-label">Last refresh</div>
-                <div class="small" id="stat-refreshed">–</div>
-              </div>
-              <button class="btn-ghost" id="refresh-btn" style="margin-top:8px;width:100%">
-                Refresh complaints
-              </button>
-            </div>
-          </div>
-
-          <!-- RIGHT PANEL -->
-          <div class="dash-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <h2>Complaints</h2>
-              <span class="status-pill">
-                <span style="width:6px;height:6px;border-radius:999px;background:#22c55e"></span>
-                Live from Supabase
-              </span>
-            </div>
-
-            <div class="small" style="margin-bottom:8px">
-              Sorted by <strong>latest first</strong>. Columns are generated automatically from your
-              <code>complaints</code> table.
-            </div>
-
-            <div style="overflow:auto;max-height:420px;border-radius:10px;border:1px solid rgba(30,64,175,0.6)">
-              <table id="complaints-table">
-                <thead id="complaints-head"></thead>
-                <tbody id="complaints-body"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script>
-    // --- Supabase config (YOUR real values) ---
     const SUPABASE_URL = "https://ncdphbagmeefgnaljtha.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZHBoYmFnbWVlZmduYWxqdGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODg5NzEsImV4cCI6MjA3OTQ2NDk3MX0.RABZe9jC3SIeAOYOZaeOXcdSIDQicavdiKNYWuhOldE";
 
-    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const loginView = document.getElementById("login-view");
-    const dashboardView = document.getElementById("dashboard-view");
-    const loginForm = document.getElementById("login-form");
-    const loginBtn = document.getElementById("login-btn");
-    const loginStatus = document.getElementById("login-status");
-    const logoutBtn = document.getElementById("logout-btn");
-    const refreshBtn = document.getElementById("refresh-btn");
+    const form = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const statusEl = document.getElementById("status");
+    const submitBtn = document.getElementById("submitBtn");
+    const dashboardInfo = document.getElementById("dashboardInfo");
 
-    const headEl = document.getElementById("complaints-head");
-    const bodyEl = document.getElementById("complaints-body");
-    const statTotal = document.getElementById("stat-total");
-    const statOpen = document.getElementById("stat-open");
-    const statClosed = document.getElementById("stat-closed");
-    const statRefreshed = document.getElementById("stat-refreshed");
+    function setStatus(message, type = "") {
+      statusEl.textContent = message;
+      statusEl.className = "status " + type;
+    }
 
-    // -------- AUTH STATE HANDLING --------
-    async function init() {
-      const { data } = await client.auth.getUser();
-      if (data && data.user) {
-        showDashboard();
-        await loadComplaints();
-      } else {
-        showLogin();
+    // Check if already logged in
+    (async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user && !error) {
+        dashboardInfo.style.display = "block";
+        setStatus(
+          "Logged in as " + (data.user.email || "admin") + ".",
+          "success"
+        );
+      }
+    })();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        setStatus("Please enter your email.", "error");
+        return;
       }
 
-      // listen for auth changes (magic link etc.)
-      client.auth.onAuthStateChange((event, session) => {
-        if (session && session.user) {
-          showDashboard();
-          loadComplaints();
-        } else if (event === "SIGNED_OUT") {
-          showLogin();
-        }
+      submitBtn.disabled = true;
+      setStatus("Sending magic link…");
+
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: "https://dematshield.in/admin.html",
+        },
       });
-    }
 
-    function showLogin() {
-      loginView.classList.remove("hidden");
-      dashboardView.classList.add("hidden");
-      logoutBtn.classList.add("hidden");
-    }
-
-    function showDashboard() {
-      loginView.classList.add("hidden");
-      dashboardView.classList.remove("hidden");
-      logoutBtn.classList.remove("hidden");
-    }
-
-    // -------- LOGIN WITH MAGIC LINK --------
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      loginStatus.textContent = "";
-      const email = e.target.email.value.trim();
-      if (!email) return;
-
-      loginBtn.disabled = true;
-      loginBtn.textContent = "Sending...";
-      try {
-        const { error } = await client.auth.signInWithOtp({
-          email,
-          options: {
-            emailRedirectTo: "https://dematshield.in/admin.html",
-          },
-        });
-        if (error) throw error;
-        loginStatus.textContent = "Login link sent. Check your inbox.";
-      } catch (err) {
-        console.error(err);
-        loginStatus.textContent = "Error sending link. Check email + settings.";
-      } finally {
-        loginBtn.disabled = false;
-        loginBtn.textContent = "Send login link";
-      }
-    });
-
-    // -------- LOGOUT --------
-    logoutBtn.addEventListener("click", async () => {
-      await client.auth.signOut();
-    });
-
-    // -------- LOAD COMPLAINTS (GENERIC TABLE) --------
-    async function loadComplaints() {
-      statRefreshed.textContent = "Loading…";
-      headEl.innerHTML = "";
-      bodyEl.innerHTML = "";
-
-      const { data, error } = await client
-        .from("complaints")
-        .select("*")
-        .order("created_at", { ascending: false });
+      submitBtn.disabled = false;
 
       if (error) {
         console.error(error);
-        bodyEl.innerHTML =
-          '<tr><td class="small" colspan="99">Error loading complaints. Check table name / RLS.</td></tr>';
-        statRefreshed.textContent = "Error";
-        return;
+        setStatus("Error: " + error.message, "error");
+      } else {
+        setStatus(
+          "Magic link sent. Check your inbox and open the link on this device.",
+          "success"
+        );
       }
-
-      if (!data || data.length === 0) {
-        bodyEl.innerHTML =
-          '<tr><td class="small" colspan="99">No complaints found yet.</td></tr>';
-        statTotal.textContent = "0";
-        statOpen.textContent = "0";
-        statClosed.textContent = "0";
-        statRefreshed.textContent = new Date().toLocaleString();
-        return;
-      }
-
-      // Build dynamic columns based on keys of first row
-      const keys = Object.keys(data[0]);
-
-      // header
-      const headerRow = document.createElement("tr");
-      keys.forEach((key) => {
-        const th = document.createElement("th");
-        th.textContent = key.replace(/_/g, " ");
-        headerRow.appendChild(th);
-      });
-      headEl.appendChild(headerRow);
-
-      // rows
-      data.forEach((row) => {
-        const tr = document.createElement("tr");
-        keys.forEach((key) => {
-          const td = document.createElement("td");
-          let value = row[key];
-
-          // Simple prettifying for status + dates
-          if (key === "status" && typeof value === "string") {
-            const lower = value.toLowerCase();
-            if (["open", "pending", "in progress"].some(s => lower.includes(s))) {
-              td.innerHTML = `<span class="tag-open">${value}</span>`;
-            } else if (["closed", "resolved", "done"].some(s => lower.includes(s))) {
-              td.innerHTML = `<span class="tag-closed">${value}</span>`;
-            } else {
-              td.textContent = value;
-            }
-          } else if (value instanceof Date) {
-            td.textContent = value.toLocaleString();
-          } else {
-            td.textContent = value == null ? "" : String(value);
-          }
-
-          tr.appendChild(td);
-        });
-        bodyEl.appendChild(tr);
-      });
-
-      // quick stats
-      statTotal.textContent = data.length.toString();
-      const openCount = data.filter(
-        (r) =>
-          (r.status || "")
-            .toString()
-            .toLowerCase()
-            .match(/open|pending|progress/)
-      ).length;
-      const closedCount = data.filter(
-        (r) =>
-          (r.status || "")
-            .toString()
-            .toLowerCase()
-            .match(/closed|resolve|done/)
-      ).length;
-      statOpen.textContent = openCount.toString();
-      statClosed.textContent = closedCount.toString();
-      statRefreshed.textContent = new Date().toLocaleString();
-    }
-
-    refreshBtn.addEventListener("click", loadComplaints);
-
-    // kick things off
-    init();
+    });
   </script>
 </body>
 </html>
