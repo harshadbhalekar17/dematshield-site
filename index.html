@@ -4,11 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Demat Shield | Investor Guidance for Demat Account Issues</title>
+
   <link rel="stylesheet" href="styles.css" />
   <script src="script.js" defer></script>
 </head>
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="site-header">
   <nav class="nav">
     <div class="brand">Demat Shield</div>
@@ -22,9 +24,13 @@
   </nav>
 </header>
 
+<!-- ================= MAIN ================= -->
 <main>
+
+  <!-- Hero -->
   <section class="hero">
     <h1>When demat account issues don’t get resolved</h1>
+
     <p>
       Demat Shield helps investors understand demat account issues handled by their
       Depository Participant. We focus on facts, process, and realistic timelines
@@ -33,13 +39,15 @@
 
     <div class="cta">
       <div class="price">₹129 per issue</div>
-      <a href="pricing.html" class="btn primary">Get Started</a>
+      <button class="btn primary" id="openForm">Get Started</button>
       <a href="process.html" class="btn secondary">How it works</a>
     </div>
   </section>
 
+  <!-- What we help with -->
   <section class="section">
     <h2>What Demat Shield helps with</h2>
+
     <p class="muted">
       Guidance is limited to demat account operations that fall under the
       responsibility of the Depository Participant.
@@ -50,14 +58,17 @@
         <h3>Demat account closure & AMC issues</h3>
         <p>Delays, rejections, or charges continuing after closure requests.</p>
       </div>
+
       <div class="card">
         <h3>Demat, remat & transfer delays</h3>
         <p>Issues in dematerialisation, rematerialisation, or security transfers.</p>
       </div>
+
       <div class="card">
         <h3>Incorrect demat records</h3>
         <p>Name, bank, nominee, or status mismatches causing operational blocks.</p>
       </div>
+
       <div class="card">
         <h3>Unclear debit or credit entries</h3>
         <p>Unexpected entries where explanations are incomplete or unclear.</p>
@@ -65,25 +76,31 @@
     </div>
   </section>
 
+  <!-- Boundaries -->
   <section class="section alt">
     <h2>Important boundaries</h2>
+
     <div class="trust">
       <div>
         <strong>No access to your demat account</strong>
         <p>We never ask for OTPs, passwords, or login credentials.</p>
       </div>
+
       <div>
         <strong>Guidance only</strong>
         <p>We do not act on behalf of investors or file complaints.</p>
       </div>
+
       <div>
         <strong>No guaranteed outcomes</strong>
         <p>Guidance helps you decide the next step. Outcomes depend on the DP.</p>
       </div>
     </div>
   </section>
+
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer class="site-footer">
   <nav class="nav">
     <div class="brand">Demat Shield</div>
@@ -94,11 +111,39 @@
       <a href="disclaimer.html">Legal</a>
     </div>
   </nav>
+
   <p class="footer-note">
     © Demat Shield. All rights reserved.<br />
     <span>Made with ❤️ in India</span>
   </p>
 </footer>
+
+<!-- ================= GET STARTED MODAL ================= -->
+<div id="caseModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeForm">&times;</span>
+
+    <h2>Get started</h2>
+
+    <p class="muted" style="margin-top:8px;">
+      Please share details of your demat account issue using the secure form below.
+    </p>
+
+    <p style="font-size:13px;color:#64748b;margin-top:10px;">
+      Do not share OTPs, passwords, or login credentials.
+    </p>
+
+    <a
+      href="https://forms.gle/5KDKKUdqw9pjWPvn8"
+      target="_blank"
+      rel="noopener"
+      class="btn primary"
+      style="margin-top:16px;display:inline-block;"
+    >
+      Open issue submission form
+    </a>
+  </div>
+</div>
 
 </body>
 </html>
