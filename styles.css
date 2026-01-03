@@ -174,20 +174,41 @@ a {
 }
 
 /* --------------------
-   Footer
+   Footer (Fixed)
 -------------------- */
 .site-footer {
-  padding: 20px;
-  margin-top: 40px;
+  background: #0a1f44;
+  color: #e5e7eb;
+  padding: 32px 20px;
+  margin-top: 60px;
+}
+
+.site-footer .nav {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.site-footer .links a {
+  margin-left: 20px;
+  font-size: 14px;
+  color: #cbd5f5;
+}
+
+.site-footer .links a:hover {
+  color: #ffffff;
 }
 
 .footer-note {
   max-width: 1100px;
-  margin: 12px auto 0;
-  font-size: 13px;
-  color: #94a3b8;
+  margin: 18px auto 0;
+  font-size: 14px;
+  color: #cbd5f5;
+  line-height: 1.5;
 }
-
 /* --------------------
    Mobile micro-UX
 -------------------- */
