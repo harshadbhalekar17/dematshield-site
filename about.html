@@ -2,236 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Demat Shield — Admin Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Demat Shield</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #050b18;
-      color: #e5e7eb;
-      margin: 0;
-    }
-    header {
-      background: #020617;
-      color: #e5f0ff;
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #1e293b;
-    }
-    header .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-    }
-    main {
-      min-height: calc(100vh - 60px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .card {
-      background: #0b1220;
-      border-radius: 16px;
-      padding: 24px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
-      border: 1px solid #1f2937;
-    }
-    .card h1 {
-      font-size: 1.3rem;
-      margin: 0 0 4px;
-    }
-    .card p.sub {
-      margin: 0 0 16px;
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
-    label {
-      display: block;
-      font-size: 0.85rem;
-      margin-bottom: 6px;
-    }
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #374151;
-      background: #020617;
-      color: #f9fafb;
-      font-size: 0.9rem;
-      box-sizing: border-box;
-      margin-bottom: 10px;
-    }
-    input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 1px #3b82f6;
-    }
-    button {
-      width: 100%;
-      margin-top: 6px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: none;
-      background: #3b82f6;
-      color: white;
-      font-weight: 500;
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
-    button:disabled {
-      opacity: 0.6;
-      cursor: default;
-    }
-    .help-text {
-      margin-top: 10px;
-      font-size: 0.8rem;
-      color: #9ca3af;
-    }
-    .status {
-      margin-top: 10px;
-      font-size: 0.85rem;
-    }
-    .status.error {
-      color: #f97373;
-    }
-    .status.success {
-      color: #4ade80;
-    }
-    .dashboard-placeholder {
-      margin-top: 20px;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px dashed #374151;
-      font-size: 0.8rem;
-      color: #9ca3af;
-      background: #020617;
-      display: none;
-    }
-    a.back-link {
-      color: #9ca3af;
-      font-size: 0.8rem;
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <span>🛡️</span>
-      <span>Demat Shield – Admin</span>
-    </div>
-    <a href="index.html" class="back-link">← Back to site</a>
-  </header>
 
-  <main>
-    <div class="card">
-      <h1>Admin login</h1>
-      <p class="sub">Use your registered admin email and password.</p>
+<header class="site-header">…same header as index.html…</header>
 
-      <form id="loginForm">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          required
-          autocomplete="email"
-          placeholder="dematshield@outlook.in"
-        />
+<main class="section">
+  <h1>About Demat Shield</h1>
+  <p>
+    Demat Shield is an independent investor guidance platform focused on
+    demat account operational issues.
+  </p>
+  <p>
+    Many investors face delays or unclear responses from their Depository
+    Participant. Our role is to help investors understand whether an issue
+    falls under demat processes and what the next practical step should be.
+  </p>
+  <p>
+    We do not act on behalf of investors and we do not guarantee outcomes.
+    Our service is limited to guidance and process understanding.
+  </p>
+</main>
 
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          required
-          autocomplete="current-password"
-          placeholder="Enter password"
-        />
+<footer class="site-footer">…same footer…</footer>
 
-        <button type="submit" id="submitBtn">Login</button>
-      </form>
-
-      <div class="help-text">
-        Only approved admins can access this dashboard.  
-        If you forget the password, reset it from Supabase.
-      </div>
-
-      <div id="status" class="status"></div>
-
-      <div id="dashboardInfo" class="dashboard-placeholder">
-        ✅ Logged in as admin.  
-        Next: we’ll show complaint list and filters here.
-      </div>
-    </div>
-  </main>
-
-  <script type="module">
-    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-    // Supabase project details
-    const SUPABASE_URL = "https://ncdphbagmeefgnaljtha.supabase.co";
-    const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZHBoYmFnbWVlZmduYWxqdGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODg5NzEsImV4cCI6MjA3OTQ2NDk3MX0.RABZe9jC3SIeAOYOZaeOXcdSIDQicavdiKNYWuhOldE";
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const form = document.getElementById("loginForm");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const statusEl = document.getElementById("status");
-    const submitBtn = document.getElementById("submitBtn");
-    const dashboardInfo = document.getElementById("dashboardInfo");
-
-    function setStatus(message, type = "") {
-      statusEl.textContent = message;
-      statusEl.className = "status " + type;
-    }
-
-    // On load, check if already logged in
-    (async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (data?.user && !error) {
-        dashboardInfo.style.display = "block";
-        setStatus("Already logged in as " + (data.user.email || "admin") + ".", "success");
-      }
-    })();
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-
-      if (!email || !password) {
-        setStatus("Please enter both email and password.", "error");
-        return;
-      }
-
-      submitBtn.disabled = true;
-      setStatus("Logging in…");
-
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      submitBtn.disabled = false;
-
-      if (error) {
-        console.error(error);
-        setStatus("Login failed: " + error.message, "error");
-      } else {
-        setStatus("Login successful.", "success");
-        dashboardInfo.style.display = "block";
-        // later we will load complaints here
-      }
-    });
-  </script>
 </body>
 </html>
