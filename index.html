@@ -1,135 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demat Shield | Investor Guidance for Demat Account Issues</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Demat Shield — Investor Guidance for Demat Issues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d1117;
+    --paper: #f7f4ef;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --navy: #122044;
+    --rust: #b84c2a;
+    --muted: #7a7464;
+    --card: #ffffff;
+    --border: #e0d9cf;
+  }
 
-  <link rel="stylesheet" href="styles.css" />
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 400; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--muted); transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: #fff !important;
+    padding: 0.5rem 1.2rem; border-radius: 2px;
+    font-size: 0.78rem !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(201,168,76,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 4rem;
+  }
+  .eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--gold);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+    font-weight: 900; line-height: 1.08;
+    color: var(--navy);
+    margin-bottom: 1.8rem;
+  }
+  h1 em { font-style: normal; color: var(--gold); }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 440px; margin-bottom: 2.5rem; line-height: 1.75;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--navy); color: #fff;
+    padding: 0.95rem 2rem; font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; border-radius: 2px;
+    transition: all 0.25s; letter-spacing: 0.02em;
+  }
+  .btn-primary:hover { background: var(--gold); color: var(--navy); }
+  .btn-primary svg { width: 16px; }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--navy); font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; padding: 0.95rem 0;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--navy); }
+  .price-badge {
+    margin-top: 2.5rem;
+    display: inline-flex; align-items: baseline; gap: 0.4rem;
+    background: var(--gold-light); padding: 0.6rem 1.2rem; border-radius: 2px;
+    color: var(--navy);
+  }
+  .price-badge .amt { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; }
+  .price-badge .label { font-size: 0.78rem; letter-spacing: 0.05em; color: var(--muted); }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    padding: 6rem 4rem 6rem 2rem; position: relative;
+  }
+  .shield-visual {
+    width: 340px; height: 420px;
+    background: var(--navy);
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; box-shadow: 0 40px 80px rgba(18,32,68,0.25);
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
+  }
+  .shield-visual::before {
+    content: '';
+    position: absolute; inset: 8px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    border: 1px solid rgba(201,168,76,0.35);
+  }
+  .shield-icon {
+    font-size: 3.5rem; margin-bottom: 1rem;
+  }
+  .shield-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--gold);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .shield-sub { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-top: 0.3rem; letter-spacing: 0.08em; }
+  .trust-ring {
+    position: absolute;
+    width: 420px; height: 420px;
+    border: 1px dashed rgba(201,168,76,0.2);
+    border-radius: 50%;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    animation: spin 30s linear infinite;
+  }
+  @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+  .trust-dot {
+    position: absolute; width: 8px; height: 8px;
+    background: var(--gold); border-radius: 50%;
+  }
+
+  /* TRUST STRIP */
+  .trust-strip {
+    background: var(--navy);
+    padding: 2rem 4rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 4rem; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(255,255,255,0.7); font-size: 0.82rem; letter-spacing: 0.04em;
+  }
+  .trust-item .icon { font-size: 1.2rem; }
+  .trust-item strong { color: #fff; }
+
+  /* SECTION COMMON */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700;
+    color: var(--navy); line-height: 1.15; margin-bottom: 1.2rem;
+  }
+  .section-sub { color: var(--muted); font-size: 1rem; max-width: 520px; line-height: 1.75; }
+
+  /* ISSUES GRID */
+  .issues-section { background: #fff; }
+  .issues-section .inner { max-width: 1100px; margin: 0 auto; }
+  .issues-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px; margin-top: 4rem;
+    background: var(--border); border: 1px solid var(--border);
+  }
+  .issue-card {
+    background: #fff; padding: 2.5rem;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .issue-card:hover { background: var(--paper); }
+  .issue-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900;
+    color: var(--gold-light); line-height: 1; margin-bottom: 1rem;
+  }
+  .issue-title {
+    font-weight: 500; font-size: 1rem; color: var(--navy);
+    margin-bottom: 0.6rem; letter-spacing: 0.01em;
+  }
+  .issue-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; }
+
+  /* PROCESS */
+  .process-section { background: var(--paper); }
+  .process-section .inner { max-width: 1100px; margin: 0 auto; }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 4rem;
+    position: relative;
+  }
+  .process-grid::before {
+    content: '';
+    position: absolute; top: 3.5rem; left: 15%; right: 15%;
+    height: 1px; background: var(--border);
+  }
+  .step {
+    text-align: center; padding: 1rem;
+  }
+  .step-num {
+    width: 56px; height: 56px; margin: 0 auto 1.5rem;
+    border: 1px solid var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700;
+    color: var(--gold); background: var(--paper);
+    position: relative; z-index: 1;
+  }
+  .step-title { font-weight: 500; color: var(--navy); margin-bottom: 0.5rem; }
+  .step-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.65; }
+
+  /* WHAT WE DONT */
+  .limits-section {
+    background: var(--navy); color: #fff;
+  }
+  .limits-section .inner { max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .limits-section .section-title { color: #fff; }
+  .limits-section .section-sub { color: rgba(255,255,255,0.55); }
+  .limits-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .limit-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+    background: rgba(255,255,255,0.04);
+  }
+  .limit-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .limit-title { font-weight: 500; margin-bottom: 0.3rem; font-size: 0.95rem; }
+  .limit-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* CTA */
+  .cta-section {
+    background: var(--paper); text-align: center;
+    padding: 7rem 4rem;
+  }
+  .cta-box {
+    max-width: 640px; margin: 0 auto;
+    padding: 4rem; background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.15), transparent 70%);
+  }
+  .cta-box .section-title { color: #fff; position: relative; }
+  .cta-box .section-sub { color: rgba(255,255,255,0.5); margin: 0 auto 2.5rem; position: relative; }
+  .cta-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 900; color: var(--gold);
+    position: relative; margin-bottom: 0.3rem;
+  }
+  .cta-price-label { color: rgba(255,255,255,0.4); font-size: 0.78rem; letter-spacing: 0.1em; margin-bottom: 2rem; position: relative; }
+  .cta-box .btn-primary { background: var(--gold); color: var(--navy); font-weight: 600; position: relative; }
+  .cta-box .btn-primary:hover { background: #fff; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.4);
+    padding: 2.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.8rem; flex-wrap: wrap; gap: 1rem;
+  }
+  footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 700;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 72px; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .hero-right { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .issues-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; }
+    .process-grid::before { display: none; }
+    .limits-section .inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .trust-strip { gap: 1.5rem; padding: 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
+    .cta-box { padding: 2.5rem 1.5rem; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="site-header">
-  <nav class="nav">
-    <div class="brand">
-      <a href="index.html" style="color:inherit; text-decoration:none;">
-        Demat Shield
-      </a>
-    </div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="process.html">Process</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </nav>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Demat<span>Shield</span></div>
+  <div class="nav-links">
+    <a href="#issues">Issues We Help</a>
+    <a href="#process">Process</a>
+    <a href="#limits">Boundaries</a>
+    <a href="#contact" class="nav-cta">Submit Issue →</a>
+  </div>
+</nav>
 
-<!-- ================= MAIN ================= -->
-<main>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>When demat account issues don’t get resolved</h1>
-
-    <p>
-      Demat Shield helps investors understand demat account issues handled by their
-      Depository Participant. We focus on facts, process, and realistic timelines
-      when responses are unclear.
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="eyebrow">Investor Guidance Platform</div>
+    <h1>When your demat issues <em>go unanswered</em></h1>
+    <p class="hero-desc">
+      Demat Shield helps Indian investors understand and navigate demat account problems handled by Depository Participants — with clarity, facts, and realistic expectations.
     </p>
-
-    <div class="cta">
-      <div class="price">₹129 per issue</div>
-
-      <!-- DIRECT GOOGLE FORM LINK -->
-      <a
-        href="https://forms.gle/5KDKKUdqw9pjWPvn8"
-        target="_blank"
-        rel="noopener"
-        class="btn primary"
-      >
+    <div class="hero-actions">
+      <a href="https://forms.gle/5KDKKUdqw9pjWPvn8" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         Submit Your Issue
       </a>
-
-      <a href="process.html" class="btn secondary">How it works</a>
+      <a href="#process" class="btn-ghost">See how it works ↓</a>
     </div>
-  </section>
+    <div class="price-badge">
+      <span class="amt">₹129</span>
+      <span class="label">per issue · No hidden charges</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="trust-ring">
+      <div class="trust-dot" style="top:-4px;left:50%;transform:translateX(-50%)"></div>
+      <div class="trust-dot" style="bottom:-4px;left:50%;transform:translateX(-50%)"></div>
+    </div>
+    <div class="shield-visual">
+      <svg width="90" height="105" viewBox="0 0 90 105" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1rem;">
+        <path d="M45 2L6 18V48C6 70 24 90 45 98C66 90 84 70 84 48V18L45 2Z" fill="none" stroke="#c9a84c" stroke-width="2.5"/>
+        <path d="M45 12L14 25V48C14 66 27.5 83 45 90C62.5 83 76 66 76 48V25L45 12Z" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+        <polyline points="28,52 40,64 62,40" stroke="#c9a84c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="45" cy="26" r="6" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+        <line x1="45" y1="20" x2="45" y2="32" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+        <line x1="39" y1="26" x2="51" y2="26" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+      </svg>
+      <div class="shield-text">Demat Shield</div>
+      <div class="shield-sub">INVESTOR GUIDANCE</div>
+    </div>
+  </div>
+</section>
 
-  <!-- What we help with -->
-  <section class="section">
-    <h2>What Demat Shield helps with</h2>
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item"><span class="icon">🔒</span><div><strong>No credentials needed</strong> — we never ask for OTPs or passwords</div></div>
+  <div class="trust-item"><span class="icon">📋</span><div><strong>Guidance only</strong> — we don't act on your behalf</div></div>
+  <div class="trust-item"><span class="icon">🇮🇳</span><div><strong>Made in India</strong> — for Indian investors</div></div>
+  <div class="trust-item"><span class="icon">⚡</span><div><strong>₹129 flat</strong> — no subscriptions, no surprises</div></div>
+</div>
 
-    <p class="muted">
-      Guidance is limited to demat account operations that fall under the
-      responsibility of the Depository Participant.
-    </p>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Demat account closure & AMC issues</h3>
-        <p>Delays, rejections, or charges continuing after closure requests.</p>
+<!-- ISSUES WE HELP -->
+<section class="issues-section" id="issues">
+  <div class="inner">
+    <div class="reveal">
+      <div class="section-label">What We Help With</div>
+      <div class="section-title">Common demat account<br>problems we guide you through</div>
+      <p class="section-sub">Our guidance covers issues that fall under the responsibility of your Depository Participant (DP).</p>
+    </div>
+    <div class="issues-grid">
+      <div class="issue-card reveal">
+        <div class="issue-num">01</div>
+        <div class="issue-title">Demat Account Closure & AMC Issues</div>
+        <p class="issue-desc">Persistent charges after closure requests, unexplained rejections, or AMC deductions despite account being inactive — we help you understand your rights and the DP's obligations.</p>
       </div>
-
-      <div class="card">
-        <h3>Demat, remat & transfer delays</h3>
-        <p>Issues in dematerialisation, rematerialisation, or security transfers.</p>
+      <div class="issue-card reveal">
+        <div class="issue-num">02</div>
+        <div class="issue-title">Demat, Remat & Transfer Delays</div>
+        <p class="issue-desc">Excessive delays in dematerialisation, rematerialisation, or security transfers. We clarify SEBI timelines and what you can reasonably expect from your DP.</p>
       </div>
-
-      <div class="card">
-        <h3>Incorrect demat records</h3>
-        <p>Name, bank, nominee, or status mismatches causing operational blocks.</p>
+      <div class="issue-card reveal">
+        <div class="issue-num">03</div>
+        <div class="issue-title">Incorrect Demat Account Records</div>
+        <p class="issue-desc">Name mismatches, wrong bank linkage, nominee errors, or status blocks. Incorrect records can freeze your ability to trade — we help identify the right correction path.</p>
       </div>
-
-      <div class="card">
-        <h3>Unclear debit or credit entries</h3>
-        <p>Unexpected entries where explanations are incomplete or unclear.</p>
+      <div class="issue-card reveal">
+        <div class="issue-num">04</div>
+        <div class="issue-title">Unclear Debit or Credit Entries</div>
+        <p class="issue-desc">Unexpected debits or credits with no clear explanation from your DP. We help you understand what questions to ask and what documentation to gather.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Boundaries -->
-  <section class="section alt">
-    <h2>Important boundaries</h2>
-
-    <div class="trust">
-      <div>
-        <strong>No access to your demat account</strong>
-        <p>We never ask for OTPs, passwords, or login credentials.</p>
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="inner">
+    <div class="reveal" style="text-align:center; margin-bottom:0;">
+      <div class="section-label">How It Works</div>
+      <div class="section-title">Simple. Transparent. Flat-fee.</div>
+      <p class="section-sub" style="margin:0 auto;">No jargon, no hidden steps. Here's what happens when you submit your issue.</p>
+    </div>
+    <div class="process-grid">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-title">Describe Your Issue</div>
+        <p class="step-desc">Fill the Google Form with the details of your demat account problem — what happened, what the DP said, and how long it's been unresolved.</p>
       </div>
-
-      <div>
-        <strong>Guidance only</strong>
-        <p>We do not act on behalf of investors or file complaints.</p>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-title">Pay ₹129</div>
+        <p class="step-desc">A single flat payment. No subscription, no percentage of claim, no contingency. Just ₹129 per issue for clear, honest guidance.</p>
       </div>
-
-      <div>
-        <strong>No guaranteed outcomes</strong>
-        <p>Guidance helps you decide the next step. Outcomes depend on the DP.</p>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-title">Receive Guidance</div>
+        <p class="step-desc">You'll get a detailed response explaining the issue, what the DP is obligated to do, realistic timelines, and your next steps — including escalation if needed.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-</main>
-
-<!-- ================= FOOTER ================= -->
-<footer class="site-footer">
-  <nav class="nav">
-    <div class="brand">Demat Shield</div>
-    <div class="links">
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="disclaimer.html">Legal</a>
+<!-- LIMITS -->
+<section class="limits-section" id="limits">
+  <div class="inner">
+    <div class="reveal">
+      <div class="section-label" style="color:var(--gold-light)">Important Boundaries</div>
+      <div class="section-title">We believe in<br>radical transparency</div>
+      <p class="section-sub">Demat Shield is not a law firm, complaint service, or account manager. Here's exactly what we do — and don't do.</p>
     </div>
-  </nav>
-
-  <p class="footer-note">
-    © Demat Shield. All rights reserved.<br />
-    <span>Made with ❤️ in India</span>
-  </p>
-</footer>
-
-</body>
-</html>
+    <div class="limits-list reveal">
+      <div class="limit-item">
+        <div class="limit-icon">🚫</div>
+        <div>
+          <div class="limit-title">We never access your account</div>
+          <p class="limit-desc">We will never ask for OTPs, passwords, login credentials, or any access to your demat or trading account. If anyone claiming to be Demat Shield does — it's fraud.</p>
+        </div>
+      </div>
+      <div class="limit-item">
+        <div class="limit-icon">📌</div>
+        <div>
+          <div class="limit-title">Guidance only — no complaint filing</div>
+          <p class="limit-desc">We don't file complaints or escalations on your behalf. We tell you what to do, where to go, and what to say — the action is yours.</p>
+        </div>
+      </div>
+      <div class="limit-item">
+        <div class="limit-icon">⚖️</div>
+        <div>
+          <div class="limit-title">No guaranteed outcomes</div>
+          <p class="limit-desc">Our guidance helps you make an informed decision. Final resolution depends on your DP, SEBI's processes, and the specifics of your case. We won't promise what we can't deliver.</p>
+        </div>
